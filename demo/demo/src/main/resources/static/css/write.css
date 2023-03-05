@@ -1,0 +1,44 @@
+<style>
+@charset "utf-8"
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color:#333;
+}
+
+ul li {
+    list-style: none;
+}
+
+form {
+    text-align: center;
+}
+
+.title {
+
+    width : 70%;
+    height: auto;
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.content {
+    width: 70%;
+    height: 500px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.board-img {
+    width: 70%;
+}
+
+</style>

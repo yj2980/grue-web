@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/header_footer.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="d834cf5d0d" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+
+<!-- header -->
+<header>
+    <nav class = "navbar">
+            <div class = "header_logo">
+                <a class = "navbar-logo" href="/"><img src="/images/logo.png" width="80" alt="logo"/></a>
+            </div>
+            <div class = "menu">
+                <ul class = "navbar-menu">
+                    <li><a href=""> PLANNING </a></li>
+                    <li><a href=""> NOTION </a></li>
+                    <li><a href=" "> GRUE </a></li>
+                    <li><a href=" "> Q&A </a></li>
+                    <li><a href="/community"> COMMUNITY </a></li>
+                </ul>
+            </div>
+            <ul class = "navbar-login">
+                    <li><a href="/login"> Login </a></li>
+                    <li><a href=""> 공지사항 </a></li>
+            </ul>
+            <a href="#" class="navbar-toggleBtn"> <i class="fas fa-bars"></i> </a>
+    </nav>
+
+
+<div class = "main">
+    <section class = "search">
+        <div class = "search-inline">
+            <input class = "search-detail" type = "text" placeholder="please search to you're destination">
+            <i class="fa-regular fa-magnifying-glass"></i>
+        </div>
+    </section>
+
+    <div style ="display : flex; flex-direction: row;">
+        <div style="flex-grow: 1; width: 50%;" class = "notice-home">
+            <h1 class = "first-notice-home"> WE ARE <strong class = "first-notice-home-storing-word"> TRIP </strong> IS <br> KEEPING GONE </h1>
+            <h3 class = "second-notice-home"> Just Do it, Feeling it, Enjoining </h3>
+            <h4 class = "third-notice-home"> welcome to planning GURU </h4>
+        </div>
+
+        <div style="flex-grow: 1;" class = "bg-section">
+            <div class = "main-background">
+                <img class = "background-img" src="/images/airplane_home.jpg" alt = "background">
+            </div>
+        </div>
+    </div>
+</div>
+</header>
+<footer>
+    <div class = "footer-link">
+    <a href = " "> 이용약관 </a>
+    <a href = " "> 개인정보처리 </a>
+    <a href = " "> 신고/문의 </a>
+    <a href = " "> 이메일문의 </a>
+    </div>
+    <p> Copyright © <strong class = "page-name"> grue </strong> All rights reserved. </p>
+</footer>
+<!-- <div class = "home_background"> </div> -->
+
+<!-- ERROR : script를 body의 상단에 작성하게 되면, 간혹 html이 로드 되기 전에 script를 먼저 불러와버리는 경우가 생긴다.
+그렇게 되면 addEventListener을 부여할 DOM을 찾지 못하게 되어 에러가 발생하게 된다. -->
+<script type="text/javascript" src="js/navbar.js"></script>
+</body>
+</html>

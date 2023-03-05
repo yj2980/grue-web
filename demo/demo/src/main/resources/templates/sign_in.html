@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/header_footer.css">
+    <link rel="stylesheet" type="text/css" href="css/community.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="d834cf5d0d" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+<header>
+    <nav class = "navbar">
+        <div class = "header_logo">
+            <a class = "navbar-logo" href="/"><img src="/images/logo.png" width="80" alt="logo"/></a>
+        </div>
+        <div class = "menu">
+            <ul class = "navbar-menu">
+                <li><a href=""> PLANNING </a></li>
+                <li><a href=""> NOTION </a></li>
+                <li><a href=" "> GRUE </a></li>
+                <li><a href=" "> Q&A </a></li>
+                <li><a href="/community"> COMMUNITY </a></li>
+            </ul>
+        </div>
+        <ul class = "navbar-login">
+            <li><a href="/login"> Login </a></li>
+            <li><a href=""> 공지사항 </a></li>
+        </ul>
+        <a href="#" class="navbar-toggleBtn"> <i class="fas fa-bars"></i> </a>
+    </nav>
+</header>
+<form action="sign_in" method="post">
+    닉네임 : <input type="text" class="username" name = "username"><br>
+    아이디 : <input type="text" class="user_email" name = "email" check_id="false" required>
+    <button type="button" class="id_overlap_button" onclink="id_overlap_check()">중복검사</button><br>
+    비밀번호 : <input type="text" class="password" name = "password"><br>
+    <input type="submit" class="sign-submit" value="가입하기">
+</form>
+
+<script type="text/javascript" src="js/sign_in.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<style>
+@charset "utf-8"
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color:#333;
+}
+
+/*  main */
+
+.main {
+    width: 100%;
+    flex: auto;
+}
+
+/* search */
+
+.search {
+    z-index: 2;
+    position: relative;
+    width: 40%;
+    max-width: 100%;
+    margin: auto;
+    top: 150px;
+}
+
+.search-detail {
+  font-size: 30px;
+  width: 100%;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2.5px solid #E3AFAF;
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 45px;
+}
+
+/* main background */
+
+.bg-section {
+  margin-top: -30px;
+  width: 50%;
+  height: 100%;
+  padding-bottom: 100%;
+}
+
+.main-background {
+  width: 100%;
+  height: 100%;
+}
+
+.background-img{
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.notice-home {
+  font-family: 'Inter', sans-serif;
+
+  margin-left: 70px;
+  margin-top: 170px;
+
+}
+
+.first-notice-home {
+  font-size: 55px;
+  font-weight: 400;
+  line-height: 60px;
+}
+
+.second-notice-home {
+   font-size: 35px;
+    margin-top: 30px;
+}
+
+
+.first-notice-home-storing-word {
+ color : #217AFF;
+}
+
+.third-notice-home {
+  font-size: 25px;
+
+  margin-top: -30px;
+}
+
+
+</style>
