@@ -7,5 +7,7 @@ import web.example.demo.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+	boolean existsByEmail(String email);
+
 
 }

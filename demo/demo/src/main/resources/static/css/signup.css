@@ -1,0 +1,41 @@
+<style>
+@charset "utf-8"
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color:#333;
+}
+
+ul li {
+    list-style: none;
+}
+
+form {
+    text-align: center;
+    line-height: 2.4;
+}
+
+form > input {
+    height: 20px;
+}
+
+form > #email-notice {
+    color: #DE4F4F;
+    display: none;
+}
+
+form > #id_overlap_button {
+    display: none;
+}
+
+
+form > .signup-submit {
+    margin-top: 15px;
+}
+
+</style>

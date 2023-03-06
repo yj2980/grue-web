@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/header_footer.css">
-    <link rel="stylesheet" type="text/css" href="css/community.css">
+    <link rel="stylesheet" type="text/css" href="css/signup.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="d834cf5d0d" crossorigin="anonymous">
     <title>Title</title>
 </head>
 <body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <header>
     <nav class = "navbar">
         <div class = "header_logo">
@@ -30,14 +31,16 @@
         <a href="#" class="navbar-toggleBtn"> <i class="fas fa-bars"></i> </a>
     </nav>
 </header>
-<form action="sign_in" method="post">
-    닉네임 : <input type="text" class="username" name = "username"><br>
-    아이디 : <input type="text" class="user_email" name = "email" check_id="false" required>
-    <button type="button" class="id_overlap_button" onclink="id_overlap_check()">중복검사</button><br>
-    비밀번호 : <input type="text" class="password" name = "password"><br>
-    <input type="submit" class="sign-submit" value="가입하기">
+<form action="signup" method="post">
+    닉네임 : <input type="text" id="username" name = "username"><br>
+    아이디 : <input type="text" id = "user_email" name = "email" onchange="validEmail(this)" required>
+    <div id="email-notice"> 올바른 이메일 주소를 입력해주세요.</div>
+    <button type="button" id="id_overlap_button" onclick="id_overlap_check()">중복검사</button><br>
+    비밀번호 : <input type="text" id="user_password" name = "password"><br>
+    비밀번호 : <input type="text" id="user_correct_password"><br>
+    <input type="submit" class="signup-submit" onchange="validPassword(this)" value="가입하기">
 </form>
 
-<script type="text/javascript" src="js/sign_in.js"></script>
+<script type="text/javascript" src="js/signup_validation.js"></script>
 </body>
 </html>

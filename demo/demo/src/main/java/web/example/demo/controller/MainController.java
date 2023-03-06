@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.example.demo.model.User;
 import web.example.demo.service.UserService;
@@ -23,9 +25,9 @@ public class MainController {
 		return "login";
 	}
 
-	@GetMapping("sign_in")
-	public String sign_in() {
-		return "sign_in";
+	@GetMapping("signup")
+	public String signup() {
+		return "signup";
 	}
 
 	@GetMapping("community")
@@ -38,9 +40,17 @@ public class MainController {
 		return "write";
 	}
 
-	@PostMapping("sign_in")
-	public String userSignIn(User user) {
+	@PostMapping("signup")
+	public String userSignup(User user) {
 		userService.user_info_save(user);
 		return "home";
+	}
+
+	@PostMapping("emailCheck")
+	@ResponseBody
+	public boolean checkEmail(@RequestParam("email") String email) {
+		boolean emailOverlap = userService.checkEmailDuplicate(email);
+
+		return emailOverlap;
 	}
 }
