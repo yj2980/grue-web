@@ -40,17 +40,26 @@ public class MainController {
 		return "write";
 	}
 
+	// 회원가입 정보 USER Table에 저장
 	@PostMapping("signup")
 	public String userSignup(User user) {
 		userService.user_info_save(user);
 		return "home";
 	}
 
-	@PostMapping("emailCheck")
+	//login 검증
+	@PostMapping("loginCheck")
+	@ResponseBody
+	public String userLogin(@RequestParam("email") String email, @RequestParam("password") String password) {
+
+		return userService.validationLogin(email, password);
+	}
+
+	// email 중복 검증
+	@PostMapping("emailDuplicationCheck")
 	@ResponseBody
 	public boolean checkEmail(@RequestParam("email") String email) {
-		boolean emailOverlap = userService.checkEmailDuplicate(email);
 
-		return emailOverlap;
+		return userService.checkEmailDuplicate(email);
 	}
 }
