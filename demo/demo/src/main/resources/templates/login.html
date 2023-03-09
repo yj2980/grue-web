@@ -9,6 +9,7 @@
     <title>Title</title>
 </head>
 <body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- header -->
 <header>
     <nav class = "navbar">
@@ -32,13 +33,16 @@
     </nav>
 </header>
 
-<form>
+<form id = "signin_submit">
     <a href="/signup"> 회원가입 </a> <br>
-    <input type="text" class = "id"><br>
-    <input type ="text" class = "pwd"><br>
-    <input type = "submit" class = "login" value = "로그인"><br>
-    <label><input type="checkbox" class = "login-continue"> 로그인 유지 </label>
+    <input type="text" id = "email" name = "email"><br>
+    <input type ="password" id = "password" name = "password"><br>
+    <label><input type="checkbox" id = "continue_login" onclick="is_login_checked()"> 로그인 유지 </label>
+    <button type = "button" id = "signup_button"> 로그인 </button>
     <a href=""> ID/PW 찾기 </a>
 </form>
+
+
+<script type="text/javascript" src="js/login.js"></script>
 </body>
 </html>
