@@ -10,6 +10,7 @@
 </head>
 <body>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="js/prevent_back_navigation_service.js"></script>
 <header>
     <nav class = "navbar">
         <div class = "header_logo">
@@ -39,9 +40,11 @@
     비밀번호 : <input type="password" id="user_password" name = "password" onchange="verifyPassword(this)"><br>
     <p id="password_notice"></p>
     비밀번호 : <input type="password" id="user_correct_password" onchange="isSamePassword(this)"><br>
+    <button type="button" id="signup-save" onclick="save_info()">저장하기</button>
     <button type="button" id="signup-submit">가입하기</button>
 </form>
 
 <script type="text/javascript" src="js/signup_validation.js"></script>
+<script type="text/javascript" src="js/signupService.js"></script>
 </body>
 </html>
