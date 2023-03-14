@@ -1,10 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/header_footer.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="d834cf5d0d" crossorigin="anonymous">
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<header>
+    <nav class = "navbar">
+        <div class = "header_logo">
+            <a class = "navbar-logo" href="/"><img src="/images/logo.png" width="80" alt="logo"/></a>
+        </div>
+        <div class = "menu">
+            <ul class = "navbar-menu">
+                <li><a href=""> PLANNING </a></li>
+                <li><a href=""> NOTION </a></li>
+                <li><a href=" "> GRUE </a></li>
+                <li><a href=" "> Q&A </a></li>
+                <li><a href="/community"> COMMUNITY </a></li>
+            </ul>
+        </div>
+        <ul class = "navbar-login">
+            <li id = "navbar_login"><a href="/login"> Login </a></li>
+            <li id = "navbar_mypage"><a href="/mypage"> mypage </a></li>
+            <li id = "navbar_logout"><a href="#" onclick="logout()"> LOGOUT </a></li>
+        </ul>
+        <a href="#" class="navbar-toggleBtn"> <i class="fas fa-bars"></i> </a>
+    </nav>
+</header>
+<div class="content" id="content">
+    <div class="in_content"><section class="xm">
+        <div id="border">
+            <section>
+                <h1>핸드폰 인증으로 계정 찾기</h1>
+                <p>회원 정보에 입력한 전화번호로 이메일을 찾을 수 있습니다. 가입할 때 등록한 전화번호를 입력하고 "ID 찾기" 버튼을 클릭해주세요.</p>
+                <form action="/" method="get">
+                    <input type="text" name="phone_number" id="phone-number" required="" placeholder="전화번호" title="전화번호" oninput="hypen(this)"><br>
+                    <button type="button" id="send-phone-number-btn" onclick="authenticate()"> 인증 문자 받기 </button>
+                    <input type="number" id="verification-code" placeholder="인증번호" style="display:none">
+                    <button type="button" id="user-authenticator-btn" onclick="userAuthenticator()" style="display:none"> 본인인증 </button>
+                    <button type="button" id="find-email-btn" onclick="findEmailByPhoneNumber()"> ID 찾기 </button>
+                </form>
+            </section>
+            <hr>
+            <section>
+                <h1>이메일 주소로 계정 찾기</h1>
+                <p>회원 정보에 입력한 이메일로 비밀번호를 재설정할 수 있습니다.<br></p>
+                <form action="/" method="get">
+                    <input type="email" name="email_address" id="email-address" required="" placeholder="이메일 주소" title="이메일 주소"><br>
+                    <button type="button" id="tmp-pw-btn"> 비밀번호 재설정 </button>
+                </form>
+            </section><hr>
+        </div>
+    </section>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/navbar.js"></script>
+<script type="text/javascript" src="js/findAccount.js"></script>
 </body>
 </html>
