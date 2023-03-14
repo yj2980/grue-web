@@ -6,13 +6,17 @@ const NOTICE = {
     KOREAN_PW : "비밀번호에 한글을 사용 할 수 없습니다.",
     SPACE_PW : "비밀번호는 공백 없이 입력해주세요.",
     NOT_SAME_PW : "비밀번호가 일치하지 않습니다.",
+    INCORRECT_PHONE_NUMBER : "올바른 전화번호 13자리를 입력해주세요.",
     INPUT_USERNAME : "닉네임을 입력해주세요.",
     INPUT_EMAIL : "이메일 중복 검사를 확인해주세요.",
-    INPUT_PASSWORD : "비밀번호를 입력해주세요."
+    INPUT_PASSWORD : "비밀번호를 입력해주세요.",
+    INPUT_PHONE_NUMBER : "전화번호를 입력해주세요."
 };
 
 let isVisited = false;
+let smsCodeCheckResult = false;
 
+// 이메일 검증
 function verifyEmail(email) {
     if (isRight(email)) {
         $("#id_overlap_button").css("display", "none");
@@ -53,9 +57,11 @@ function isEmailDuplicate() {
                return;
             }
         }
-    })
+    });
 }
 
+
+// 비밀번호 검증
 function verifyPassword(pw){
 	var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 	var duplication = /(\w)\1\1\1/;
@@ -90,26 +96,89 @@ function isNotSame(first, second) {
     return (first !== second);
 }
 
-
 function validPasswordCheck(obj, pattern) {
    return (obj.value.match(pattern) != null);
 }
 
-function noticeReason(text, obj) {
-    alert(text);
-    initInputText(obj);
+// 전화번호 검증
+function hypen(number) {
+    number.value = number.value
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
 }
 
-function initInputText(obj) {
-    obj.value = '';
-    obj.focus();
+//문자 보내기 요청
+function sendMessage() {
+   var phoneNumber = $("#telephone_number");
+
+   if (phoneNumber.val().length != 13) {
+       noticeReason(NOTICE.INCORRECT_PHONE_NUMBER, phoneNumber);
+       return;
+   }
+
+    $.ajax({
+        url:'./sendPhoneNumber',
+        type:'post',
+        data: {
+           'phoneNumber': phoneNumber.val()
+        },
+        datatype: 'json',
+        success: function (result) {
+            console.log(JSON.stringify(result));
+
+            if (result.statusName == "success") {
+                 $("#sms_auth_code").css("display", "block");
+                 $("#sms_auth_check").css("display", "block");
+            }
+        }
+    });
 }
 
+//문자 인증
+function smsAuthenticationCheck() {
+   var smsCode = $("#sms_auth_code");
+
+    $.ajax({
+        url:'./checkVerificationCode',
+        type:'post',
+        data: {
+           'code': smsCode.val()
+        },
+        datatype: 'json',
+        success: function (result) {
+            if (result) {
+                smsCodeCheckResult = true;
+                alert("인증이 완료되었습니다.");
+                smsCode.css("display", "none");
+                $("#sms_auth_check").css("display", "none");
+
+                console.log("지우기");
+            }
+        }
+    });
+}
+
+
+
+
+// 서버로 데이터 전송
 document.getElementById("signup-submit").addEventListener("click", signup);
 
 function signup() {
     if ($("#username").val() == "") {
         alert(NOTICE.INPUT_USERNAME);
+        return;
+    }
+
+/*
+    if (!smsCodeCheckResult) {
+        alert("문자 인증을 확인해주세요.");
+        return;
+    }
+*/
+
+    if ($("#telephone_number").val() == "") {
+        alert(NOTICE.INPUT_PHONE_NUMBER);
         return;
     }
 
@@ -123,6 +192,26 @@ function signup() {
         return;
     }
 
+    if ($("#user_password").val() == "") {
+        alert(NOTICE.INPUT_PHONE_NUMBER);
+        return;
+    }
+
+    if (sessionStorage.getItem("user")) {
+        console.log("remove 'user' data")
+        sessionStorage.removeItem("user");
+    }
+
     $("#signupForm").submit();
 }
 
+// 결과
+function noticeReason(text, obj) {
+    alert(text);
+    initInputText(obj);
+}
+
+function initInputText(obj) {
+    obj.value = '';
+    obj.focus();
+}

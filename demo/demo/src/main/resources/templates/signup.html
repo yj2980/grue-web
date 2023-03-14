@@ -32,8 +32,12 @@
         <a href="#" class="navbar-toggleBtn"> <i class="fas fa-bars"></i> </a>
     </nav>
 </header>
-<form action="signup" method="post" id = "signupForm">
-    닉네임 : <input type="text" id="username" name = "username"><br>
+<form action="signup" method="post" id="signupForm">
+    닉네임 : <input type="text" id="username" name="username"><br>
+    전화번호 : <input type="text" id="telephone_number" name="phoneNumber" oninput="hypen(this)" maxlength="13"> <br>
+    <button type = "button" id="sms_authentication" onclick="sendMessage()"> 문자 인증 </button>
+    <input type = "text" id="sms_auth_code" style="display:none">
+    <button type = "button" id="sms_auth_check" onclick="smsAuthenticationCheck()" style="display:none"> 인증하기 </button> <br>
     아이디 : <input type="text" id = "user_email" name = "email" onchange="verifyEmail(this)" required>
     <div id="email-notice"> 올바른 이메일 주소를 입력해주세요.</div>
     <button type="button" id="id_overlap_button" onclick="isEmailDuplicate()">중복검사</button><br>
