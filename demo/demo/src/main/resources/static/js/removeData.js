@@ -1,3 +1,3 @@
-if (sessionStore.getItem("user")) {
-    sessionStore.removeItem("user");
+if (sessionStorage.getItem("user")) {
+    sessionStorage.removeItem("user");
 }

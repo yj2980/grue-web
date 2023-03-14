@@ -50,6 +50,7 @@ ul li {
     display: flex;
     margin-right: 15px;
 }
+
 .navbar-login > li{
     padding-left: 0;
     font-family: "Inter";
@@ -73,7 +74,6 @@ ul li {
     font-size: 24px;
     color: var(--accent-color);
 }
-
 
 @media screen and (max-width: 768px) {
 
