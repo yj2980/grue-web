@@ -1,7 +1,5 @@
 package web.example.demo.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,13 +31,15 @@ public class UserService {
 		return userRepository.existsByEmail(email);
 	}
 
-	public String validationLogin(String email, String password) {
+	public String validateLogin(String email, String password) {
 		User user_info = findUserByEmail(email);
 
+		// 가입된 email이 아닐 경우
 		if (user_info == null) {
 			return "not_exist";
 		}
 
+		// password 일치하지 않을 때
 		if (!passwordEncoder.matches(password, String.valueOf(user_info.getPassword()))) {
 			return "not_same";
 		}
