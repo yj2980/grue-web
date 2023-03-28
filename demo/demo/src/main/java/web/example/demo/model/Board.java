@@ -13,13 +13,14 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Entity
@@ -33,15 +34,16 @@ public class Board {
 	private int views;
 
 	@ManyToOne
-	@JoinColumn(name = "userId")
-	private User user;
+	@JoinColumn(name = "user_id")
+	private User userID;
 
 	@Column(nullable = false, length = 100)
 	private String title;
 
-	@Column(nullable = true, length = 5000)
+	@Column(length = 5000)
 	private String content;
 
 	@CreationTimestamp
 	private Timestamp createDate;
+
 }
