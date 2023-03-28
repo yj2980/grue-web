@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import web.example.demo.dto.UserDto;
 import web.example.demo.model.User;
 import web.example.demo.repository.UserRepository;
 
@@ -17,13 +18,18 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public void user_info_save(User user) {
-		String encodedPassword = passwordEncoder.encode(user.getPassword());
-		user.setPassword(encodedPassword);
-		userRepository.save(user);
+	public void saveUserInfo(UserDto userDto) {
+		userRepository.save(toEntity(userDto));
 	}
 
-	public boolean checkEmailDuplicate(String email) {
+	private User toEntity(UserDto userDto) {
+		String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+
+		return userDto.toUser(encodedPassword);
+	}
+
+
+	public boolean isEmailDuplicate(String email) {
 		return userRepository.existsByEmail(email);
 	}
 
@@ -38,8 +44,12 @@ public class UserService {
 			return "not_same";
 		}
 
-		return "true";
+		return user_info.getUsername();
 	}
+
+	/*
+		JPA SQL QUERY
+	 */
 
 	public User findUserByEmail(String email) {
 		return userRepository.findByEmail(email);
