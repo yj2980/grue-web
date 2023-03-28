@@ -1,7 +1,5 @@
 package web.example.demo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,9 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import web.example.demo.dto.UserDto;
-import web.example.demo.model.Board;
 import web.example.demo.model.User;
-import web.example.demo.service.BoardService;
 import web.example.demo.service.SensService;
 import web.example.demo.service.UserService;
 import web.example.demo.util.SmsResponse;
@@ -25,8 +21,6 @@ import web.example.demo.util.SmsResponse;
 public class MainController {
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private BoardService boardService;
 	@Autowired
 	private SensService smsService;
 
@@ -49,13 +43,6 @@ public class MainController {
 		return "findAccount";
 	}
 
-	@GetMapping("community")
-	public String community(Model model) {
-
-
-		return "community";
-	}
-
 	@GetMapping("write")
 	public String write() {
 		return "write";
@@ -65,6 +52,7 @@ public class MainController {
 	@PostMapping("signup")
 	public String userSignup(UserDto userDto) {
 		userService.saveUserInfo(userDto);
+
 		return "home";
 	}
 
@@ -75,7 +63,10 @@ public class MainController {
 		String result = "";
 
 		try {
-			result = userService.validationLogin(email, password);
+			result = userService.validateLogin(email, password);
+
+			System.out.println("usercheck 결과 확인 \n ------------------------\n " + result);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -100,9 +91,9 @@ public class MainController {
 
 	@PostMapping("findEmailByPhoneNumber")
 	public ResponseEntity<SmsResponse> findEmail(@RequestParam("phoneNumber") String phoneNumber) throws JsonProcessingException {
-		String result;
 		User user = userService.findEmailByPhoneNumber(phoneNumber);
 
+		// 가입된 email이 없을 경우
 		if (user == null) {
 			return null;
 		}

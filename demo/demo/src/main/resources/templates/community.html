@@ -60,18 +60,29 @@
                 <th> 날짜 </th>
                 <th> 조회수 </th>
                 <tr th:each = "writing : ${writingList}">
-                    <td th:text = "${writing.seq}"></td>
-                    <td th:text = "${writing.writer}"></td>
+                    <td th:text = "${writing.category}"></td>
+                    <td th:text = "${writing.author}"></td>
                     <td th:text = "${writing.title}"></td>
                     <td th:text = "${writing.date}"></td>
-                    <td th:text = "${writing.views>"></td>
+                    <td th:text = "${writing.views}"></td>
                 </tr>
             </table>
+            <!--page-->
+            <!-- Pagination -->
+            <div style="margin: 10px">
+            <span th:each="pageNumber : ${pageList}" th:inline="text">
+                <a th:href="@{'/community/list/?page=' + ${pageNumber}}">[[${pageNumber}]]</a>
+            </span>
+                <!-- 글쓰기 버튼 -->
+                <a style="float: right" class="btn btn-primary" th:href="@{/board/post}">글쓰기</a>
+            </div>
         </div>
+
+        <a href="/write"> 글쓰기 </a>
+
     </div>
 </div>
 
-<a href="/write"> 글쓰기 </a>
 
 <footer>
     <div class = "footer-link">
