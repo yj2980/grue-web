@@ -19,7 +19,7 @@ public class SignInTest {
 		String email = "adore2100@naver.com";
 		String pw = "";
 
-		if (userService.validationLogin(email, pw).equals("true")) {
+		if (userService.validateLogin(email, pw).equals("true")) {
 			result = true;
 		}
 
@@ -31,7 +31,7 @@ public class SignInTest {
 		String email = "cc90@gmail.com";
 		String pw = "ccc";
 
-		if (userService.validationLogin(email, pw).equals("not_exist")) {
+		if (userService.validateLogin(email, pw).equals("not_exist")) {
 			result = false;
 		}
 
@@ -43,7 +43,7 @@ public class SignInTest {
 		String email = "adore2100@naver.com";
 		String pw = "ccc";
 
-		if (userService.validationLogin(email, pw).equals("not_same")) {
+		if (userService.validateLogin(email, pw).equals("not_same")) {
 			result = false;
 		}
 
