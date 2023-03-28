@@ -23,10 +23,12 @@ function logout() {
    if (sessionStorage.getItem("login")) {
         console.log("session reset");
         sessionStorage.setItem("login", "false");
+        sessionStorage.removeItem("username");
    }
    if (localStorage.getItem("login")) {
         console.log("local reset");
         localStorage.setItem("login", "false");
+        localStorage.removeItem("username");
    }
 
    window.location.href = "./";

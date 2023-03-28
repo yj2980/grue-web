@@ -39,7 +39,7 @@ function login() {
 
             if (!isVisited) {
                 loginResult = true;
-                saveLoginResult()
+                saveLoginResult(result)
                 window.location.href = "./";
             }
         }
@@ -56,6 +56,7 @@ function is_login_checked() {
             console.log("로그인 유지를 선택해서, 로컬 스토리지에 저장합니다.");
             localStorage.setItem("login", loginResult);
             sessionStorage.removeItem("login");
+            sessionStorage.removeItem("username");
         }
 
         // save login info in session storage
@@ -66,12 +67,14 @@ function is_login_checked() {
         }
 }
 
-function saveLoginResult() {
+function saveLoginResult(username) {
     if (localStorage.getItem("login")) {
         localStorage.setItem("login", loginResult);
+        localStorage.setItem("username", username);
     }
 
     if (sessionStorage.getItem("login")) {
         sessionStorage.setItem("login", loginResult);
+        sessionStorage.setItem("username", username);
     }
 }

@@ -10,6 +10,7 @@
     <title>write</title>
 </head>
 <body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- header -->
 <header>
     <nav class = "navbar">
@@ -26,18 +27,26 @@
             </ul>
         </div>
         <ul class = "navbar-login">
-            <li><a href="/login"> Login </a></li>
-            <li><a href=""> 공지사항 </a></li>
+            <li id = "navbar_login"><a href="/login"> Login </a></li>
+            <li id = "navbar_mypage"><a href="/mypage"> mypage </a></li>
+            <li id = "navbar_logout"><a href="#" onclick="logout()"> LOGOUT </a></li>
         </ul>
         <a href="#" class="navbar-toggleBtn"> <i class="fas fa-bars"></i> </a>
     </nav>
 </header>
 
-<form class = "write">
-    <input type ="text" class = "title"  placeholder="제목"> <br>
-    <input type = "text" class = "content" placeholder="내용을 입력하세요"><br>
-    <input type = "file" class = "board-img"> <br>
-    <input type = "submit" value = "글쓰기">
+<form action="writingBoard" method="post" id="writingForm">
+    <select name="category" id="board-category">
+        <option value="sharingInformation_board">정보 공유</option>
+        <option value="question_board">질문</option>
+        <option value="review_board">후기</option>
+        <option value="general_board">자유게시판</option>
+    </select>
+    <input type="text" id="board_author" name = "author" style="display:none">
+    <input type="text" id="board_title" placeholder="제목" name="title"> <br>
+    <input type="text" id="board_content" placeholder="내용을 입력하세요" name="content"><br>
+    <input type="file" id="board-img" name="img"> <br>
+    <button type="button" id="writing-btn" onclick="writing()">글쓰기</button>
 </form>
 
 <footer>
@@ -49,6 +58,8 @@
     </div>
     <p> Copyright © <strong class = "page-name"> grue </strong> All rights reserved. </p>
 </footer>
-
+<script type="text/javascript" src="js/writingService.js"></script>
+<script type="text/javascript" src="js/navbar.js"></script>
+<script type="text/javascript" src="js/loginService.js"></script>
 </body>
 </html>
