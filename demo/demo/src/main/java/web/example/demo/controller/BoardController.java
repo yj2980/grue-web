@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import web.example.demo.dto.BoardDto;
-import web.example.demo.model.Board;
 import web.example.demo.service.BoardService;
 
 @Controller
@@ -26,22 +25,18 @@ public class BoardController {
 		boardService.saveBoardInfo(board);
 
 		// CHORE : 이거 show로 바꿔야한다.~!~~!~!~!
-		return "redirect:/community/list";
+		return "redirect:community";
 	}
 
 	@GetMapping({"community","community/list"})
 	public String community(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNumber) {
 		List<BoardDto> board = boardService.findBoardList(pageNumber);
-		Integer[] pageList = boardService.getPageList(pageNumber);
-
-		for (int i = 0; i < pageList.length; i++) {
-			System.out.println("page List : " + pageList[i]);
-		}
+		List<Integer> pageList = boardService.getPageList(pageNumber);
 
 		model.addAttribute("writingList", board);
 		model.addAttribute("pageList", pageList);
 
-		return "community/list";
+		return "community";
 	}
 
 }
