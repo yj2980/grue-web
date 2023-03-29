@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/header_footer.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="d834cf5d0d" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="/js/removeData.js"></script>
+<!-- header -->
+<header>
+    <nav class = "navbar">
+        <div class = "header_logo">
+            <a class = "navbar-logo" href="/"><img src="/images/logo.png" width="80" alt="logo"/></a>
+        </div>
+        <div class = "menu">
+            <ul class = "navbar-menu">
+                <li><a href=""> PLANNING </a></li>
+                <li><a href=""> NOTION </a></li>
+                <li><a href=" "> GRUE </a></li>
+                <li><a href=" "> Q&A </a></li>
+                <li><a href="/community"> COMMUNITY </a></li>
+            </ul>
+        </div>
+        <ul class = "navbar-login">
+            <li id = "navbar_login"><a href="/login"> Login </a></li>
+            <li id = "navbar_mypage"><a href="/mypage"> mypage </a></li>
+            <li id = "navbar_logout"><a href="#" onclick="logout()"> LOGOUT </a></li>
+        </ul>
+        <a href="#" class="navbar-toggleBtn"> <i class="fas fa-bars"></i> </a>
+    </nav>
+</header>
+
+<main role="main" class="container">
+    <div class="starter-template">
+        <form id="update-form" th:action="@{'/community/postUpdate/' + ${boardDto.id}}" method="post">
+            <!-- HTML FORM 테그가 GET,POST 밖에 지원하기 때문에 PUT을 사용하려면 아래 방식을 사용해야 한다.-->
+            <input type="hidden" name="_method" value="put"/>
+            <input type="hidden" name="id" th:value="${boardDto.id}"/>
+
+            제목 : <input type="text" name="title" th:value="${boardDto.title}"> <br>
+            작성자 : <input type="text" name="author" th:value="${boardDto.author}"> <br>
+            <textarea name="content" th:text="${boardDto.content}"></textarea><br>
+
+            <div class="box-footer">
+                <button type="button" id="btn btn-primary" onclick="updatePost()">수정</button>
+                <button type="button" id="btn btn-warning" onclick="cancelPost()">취소</button>
+            </div>
+        </form>
+
+    </div>
+</main>
+<script type="text/javascript" src="/js/postUpdate.js"></script>
+<script type="text/javascript" src="/js/navbar.js"></script>
+<script type="text/javascript" src="/js/loginService.js"></script>
+</body>
+</html>

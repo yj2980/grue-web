@@ -2,16 +2,15 @@ package web.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.NonNull;
 import web.example.demo.dto.BoardDto;
 import web.example.demo.model.Board;
 import web.example.demo.model.User;
@@ -27,11 +26,23 @@ public class BoardService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public void saveBoardInfo(BoardDto boardDto) {
+	// optional to entity
+	public Board findById(int id) {
+		return boardRepository.findById(id).get();
+	}
+
+	public void saveBoardInfo(BoardDto.Create boardDto) {
 		if (verifyUserMembership(boardDto.getAuthor())) {
 			boardRepository.save(toEntity(boardDto));
 		}
 	}
+
+	public BoardDto.Post getPost(Integer id) {
+		Board board = findById(id);
+
+		return BoardDto.Post.toDTO(board);
+	}
+
 
 	// 회원 가입된 유저가 맞는지 확인
 	private boolean verifyUserMembership(String username) {
@@ -44,16 +55,16 @@ public class BoardService {
 		return true;
 	}
 
-	private Board toEntity(BoardDto boardDto) {
+	private Board toEntity(BoardDto.Create boardDto) {
 		User user = userRepository.findByUsername(boardDto.getAuthor());
 
 		return boardDto.toBoard(user);
 	}
 
-	public List<BoardDto> findBoardList(Integer pageNumber) {
+	public List<BoardDto.Search> findBoardList(Integer pageNumber) {
 		Page<Board> boards = boardRepository.findAll(PageRequest.of(pageNumber - 1, PAGE_POST_COUNT));
 
-		return boards.stream().filter(v -> v.getUserID() != null).map(BoardDto::toDTO).collect(Collectors.toList());
+		return boards.stream().filter(v -> v.getUserID() != null).map(BoardDto.Search::toDTO).collect(Collectors.toList());
 	}
 
 	// 페이징
@@ -78,7 +89,7 @@ public class BoardService {
 	private List<Integer> setCurrentPage(Integer currentPageNumber, Integer blockLastPageNumber) {
 		List<Integer> pageList = new ArrayList<>();
 
-		for (int value = currentPageNumber, i = 0; value < blockLastPageNumber; value++, i++) {
+		for (int value = currentPageNumber, i = 0; value <= blockLastPageNumber; value++, i++) {
 			try {
 				pageList.set(i, value);
 			} catch (Exception e) {

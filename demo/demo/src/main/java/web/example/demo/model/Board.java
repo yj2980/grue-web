@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Board {
+public class Board extends Time{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,8 +42,5 @@ public class Board {
 
 	@Column(length = 5000)
 	private String content;
-
-	@CreationTimestamp
-	private Timestamp createDate;
 
 }

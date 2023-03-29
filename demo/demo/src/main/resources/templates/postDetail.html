@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/header_footer.css">
-    <link rel="stylesheet" type="text/css" href="/css/community.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="d834cf5d0d" crossorigin="anonymous">
     <title>Title</title>
 </head>
@@ -36,50 +35,54 @@
     </nav>
 </header>
 
-<div class = "board">
-    <div class = "board-title">
-        <h2> 자유 게시판</h2>
-    </div>
-    <div class = "board-inline">
-        <div class= "board-switch">
-            <button type = "button" onclick= ""> 정보 공유 </button>
-            <button type = "button" onclick= ""> 질문 </button>
-            <button type = "button" onclick= ""> 후기 </button>
-        </div>
+<div class="starter-template">
 
-        <div class = "board-search">
-            <button type = "button"> 내용 + 제목 </button>
-            <input class = "board-search-content" type = "text">
-        </div>
+    <table class ="table table-bordered">
+        <thead>
+            <caption>글 읽기</caption>
+        </thead>
 
-        <div class = "board-table">
-            <table>
-                <th> 분류 </th>
-                <th> 글쓴이 </th>
-                <th> 제목 </th>
-                <th> 날짜 </th>
-                <th> 조회수 </th>
-                <tr th:each = "writing : ${writingList}">
-                    <td th:text = "${writing.category}"></td>
-                    <td th:text = "${writing.author}"></td>
-                    <td><a th:href="'/community/postDetail/'+${writing.id}" th:text = "${writing.title}"></a></td>
-                    <td th:text = "${writing.date}"></td>
-                    <td th:text = "${writing.views}"></td>
+        <tbody>
+            <tr>
+                <th>제목</th>
+                <td th:text="${boardDto.title}"></td>
+            </tr>
+
+            <tbody>
+                <tr>
+                    <th>작성자</th>
+                    <td th:text="${boardDto.author}"></td>
                 </tr>
-            </table>
-            <!--page-->
-            <!-- Pagination -->
-            <div style="margin: 10px">
-            <span th:each="pageNumber : ${pageList}" th:inline="text">
-                <a th:href="@{'/community/?page=' + ${pageNumber}}">[[${pageNumber}]]</a>
-            </span>
-                <!-- 글쓰기 버튼 -->
-                <a style="float: right" class="btn btn-primary" href="/write">글쓰기</a>
-            </div>
-        </div>
-    </div>
-</div>
+                <tr>
+                    <th>작성일</th>
+                    <td th:inline="text" th:text="${boardDto.date}"></td>
+                </tr>
+                <tr>
+                    <th>본문 내용</th>
+                    <td th:text="${boardDto.content}"></td>
+                </tr>
+            </tbody>
+        </table>
 
+        <div>
+            <a th:href="@{'/community/postUpdate/' + ${boardDto.id}}">
+            <button class="btn btn-primary">수정</button>
+            </a>
+        </div>
+        <!-- 수정/삭제
+        <div>
+            <a th:href="@{'/board/post/edit/' + ${boardDto.id}}">
+                <button class="btn btn-primary">수정</button>
+            </a>
+            <form id="delete-form" th:action="@{'/board/post/' + ${boardDto.id}}" method="post">
+                <input type="hidden" name="_method" value="delete"/>
+                <button class="btn btn-warning" id="delete-btn">삭제</button>
+            </form>
+        </div>
+        -->
+
+    </div>
+</main>
 
 <footer>
     <div class = "footer-link">
