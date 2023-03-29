@@ -37,6 +37,10 @@ public class BoardService {
 		}
 	}
 
+	public void deleteBoardPost(int id) {
+		boardRepository.deleteById(id);
+	}
+
 	public BoardDto.Post getPost(Integer id) {
 		Board board = findById(id);
 

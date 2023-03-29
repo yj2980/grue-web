@@ -33,3 +33,9 @@ spring:
               descriptor:
                 sql:
                   BasicBinder: TRACE
+
+api :
+  sms :
+    - "ncp:sms:kr:303898637074:grue"
+    - "JOJevjFIJr93LP27vO8s"
+    - "AuaIIkuLgaLzTD1jpue69BIvdSqknr41hBkk4Nlq"
