@@ -1,10 +1,9 @@
 package web.example.demo.dto;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
-import org.springframework.jmx.export.annotation.ManagedMetric;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
+import net.bytebuddy.asm.Advice;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -45,7 +44,7 @@ public class BoardDto {
 		private String author;
 		private String content;
 		private String category;
-		private Timestamp date;
+		private LocalDateTime modifiedDate;
 		private String views;
 
 		public static Search toDTO(Board entity) {
@@ -55,8 +54,8 @@ public class BoardDto {
 					.title(entity.getTitle())
 					.author(entity.getUserID().getUsername())
 					.content(entity.getContent())
+					.modifiedDate(entity.getModifiedDate())
 					.views(String.valueOf(entity.getViews()))
-					.date(entity.getCreateDate())
 					.build();
 		}
 	}
@@ -69,15 +68,15 @@ public class BoardDto {
 		private String title;
 		private String content;
 		private String author;
-		private Timestamp date;
+		private LocalDateTime modifiedDate;
 
 		public static Post toDTO(Board entity) {
 			return Post.builder()
 					.id(entity.getId())
 					.title(entity.getTitle())
 					.author(entity.getUserID().getUsername())
+					.modifiedDate(entity.getModifiedDate())
 					.content(entity.getContent())
-					.date(entity.getCreateDate())
 					.build();
 		}
 	}
