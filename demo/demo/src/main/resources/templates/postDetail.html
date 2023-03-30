@@ -10,7 +10,6 @@
 </head>
 <body>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="/js/removeData.js"></script>
 <!-- header -->
 <header>
     <nav class = "navbar">
@@ -51,7 +50,7 @@
             <tbody>
                 <tr>
                     <th>작성자</th>
-                    <td th:text="${boardDto.author}"></td>
+                    <td th:text="${boardDto.author}" id="post-author"></td>
                 </tr>
                 <tr>
                     <th>작성일</th>
@@ -66,25 +65,13 @@
 
         <div>
             <a th:href="@{'/community/postUpdate/' + ${boardDto.id}}">
-            <button class="btn btn-primary">수정</button>
+            <button id="edit-btn">수정</button>
             </a>
             <form id="delete-form" th:action="@{'/community/postUpdate/' + ${boardDto.id}}" method="post">
                 <input type="hidden" name="_method" value="delete"/>
                 <button class="btn btn-warning" id="delete-btn">삭제</button>
             </form>
         </div>
-        <!-- 수정/삭제
-        <div>
-            <a th:href="@{'/board/post/edit/' + ${boardDto.id}}">
-                <button class="btn btn-primary">수정</button>
-            </a>
-            <form id="delete-form" th:action="@{'/board/post/' + ${boardDto.id}}" method="post">
-                <input type="hidden" name="_method" value="delete"/>
-                <button class="btn btn-warning" id="delete-btn">삭제</button>
-            </form>
-        </div>
-        -->
-
     </div>
 </main>
 
@@ -97,6 +84,9 @@
     </div>
     <p> Copyright © <strong class = "page-name"> grue </strong> All rights reserved. </p>
 </footer>
+<script th:inline="javascript"> var postAuthor = [[${boardDto.author}]]; </script>
+<script type="text/javascript" th:inline="javascript" src="/js/preventEditNotAuthor.js"></script>
 <script type="text/javascript" src="/js/navbar.js"></script>
+<script type="text/javascript" src="/js/loginService.js"></script>
 </body>
 </html>

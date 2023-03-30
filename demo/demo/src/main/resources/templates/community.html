@@ -11,7 +11,6 @@
 </head>
 <body>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="/js/removeData.js"></script>
 <!-- header -->
 <header>
     <nav class = "navbar">
@@ -27,10 +26,10 @@
                 <li><a href="/community"> COMMUNITY </a></li>
             </ul>
         </div>
-        <ul class = "navbar-login">
-            <li id = "navbar_login"><a href="/login"> Login </a></li>
-            <li id = "navbar_mypage"><a href="/mypage"> mypage </a></li>
-            <li id = "navbar_logout"><a href="#" onclick="logout()"> LOGOUT </a></li>
+        <ul class="navbar-login">
+            <li id="navbar_login"><a href="/login"> Login </a></li>
+            <li id="navbar_mypage"><a href="/mypage"> mypage </a></li>
+            <li id="navbar_logout"><a href="#" onclick="logout()"> LOGOUT </a></li>
         </ul>
         <a href="#" class="navbar-toggleBtn"> <i class="fas fa-bars"></i> </a>
     </nav>
@@ -74,7 +73,7 @@
                 <a th:href="@{'/community/?page=' + ${pageNumber}}">[[${pageNumber}]]</a>
             </span>
                 <!-- 글쓰기 버튼 -->
-                <a style="float: right" class="btn btn-primary" href="/write">글쓰기</a>
+                <a style="float: right" id="btn-write" href="/write">글쓰기</a>
             </div>
         </div>
     </div>
@@ -91,5 +90,7 @@
     <p> Copyright © <strong class = "page-name"> grue </strong> All rights reserved. </p>
 </footer>
 <script type="text/javascript" src="/js/navbar.js"></script>
+<script type="text/javascript" src="/js/LimitWritingInCommunity.js"></script>
+<script type="text/javascript" src="/js/loginService.js"></script>
 </body>
 </html>

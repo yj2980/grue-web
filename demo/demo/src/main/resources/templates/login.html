@@ -10,7 +10,6 @@
 </head>
 <body>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="js/removeData.js"></script>
 <!-- header -->
 <header>
     <nav class = "navbar">
@@ -26,9 +25,10 @@
                 <li><a href="/community"> COMMUNITY </a></li>
             </ul>
         </div>
-        <ul class = "navbar-login">
-            <li><a href="/login"> Login </a></li>
-            <li><a href=""> 공지사항 </a></li>
+        <ul class="navbar-login">
+            <li id="navbar_login"><a href="/login"> Login </a></li>
+            <li id="navbar_mypage"><a href="/mypage"> mypage </a></li>
+            <li id="navbar_logout"><a href="#" onclick="logout()"> LOGOUT </a></li>
         </ul>
         <a href="#" class="navbar-toggleBtn"> <i class="fas fa-bars"></i> </a>
     </nav>
@@ -42,8 +42,8 @@
     <button type = "button" id = "signup_button"> 로그인 </button>
     <a href="/findAccount"> ID/PW 찾기 </a>
 </form>
-
-
-<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript" src="/js/navbar.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
+<script type="text/javascript" src="/js/loginService.js"></script>
 </body>
 </html>
