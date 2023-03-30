@@ -59,7 +59,7 @@
                 <th> 날짜 </th>
                 <th> 조회수 </th>
                 <tr th:each = "writing : ${writingList}">
-                    <td th:text = "${writing.category}"></td>
+                    <td><a th:href = "@{'/community'(category=${writing.category})}">[[${writing.category}]]</a></td>
                     <td th:text = "${writing.author}"></td>
                     <td><a th:href="'/community/postDetail/'+${writing.id}" th:text = "${writing.title}"></a></td>
                     <td th:text = "${writing.modifiedDate}"></td>

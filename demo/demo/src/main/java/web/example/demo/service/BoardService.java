@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import web.example.demo.model.Board;
 import web.example.demo.model.User;
 import web.example.demo.repository.BoardRepository;
 import web.example.demo.repository.UserRepository;
+import web.example.demo.util.BoardCategoryEnum;
 
 @Service
 public class BoardService {
@@ -62,8 +64,18 @@ public class BoardService {
 		return boardDto.toBoard(user);
 	}
 
-	public List<BoardDto.ShowBoardDTO> findBoardList(Integer pageNumber) {
-		Page<Board> boards = boardRepository.findAll(PageRequest.of(pageNumber - 1, PAGE_POST_COUNT));
+	public List<BoardDto.ShowBoardDTO> findBoardList(Integer pageNumber, String category) {
+		System.out.println("카테고리 : " + category);
+		Page<Board> boards;
+		category = BoardCategoryEnum.findSelectByCategoryValue(category);
+
+		if (!category.equals(BoardCategoryEnum.GENERAL.getSelectValue())) {
+			boards = boardRepository.findByCategory(PageRequest.of(pageNumber - 1, PAGE_POST_COUNT), category);
+		} else {
+			boards = boardRepository.findAll(PageRequest.of(pageNumber - 1, PAGE_POST_COUNT));
+		}
+
+		System.out.println("\n\n 결과값 : " + category + " || " + boards);
 
 		return boards.stream().filter(v -> v.getUserID() != null).map(BoardDto.ShowBoardDTO::toDTO).collect(Collectors.toList());
 	}
@@ -74,10 +86,11 @@ public class BoardService {
 		return boardRepository.count();
 	}
 
-	public List<Integer> getPageList(Integer currentPageNumber) {
+
+	public List<Integer> getPageList(Integer currentPageNumber, String category) {
 		List<Integer> pageList;
 
-		Integer totalLastPageNumber = countLastPageNumber();
+		Integer totalLastPageNumber = countLastPageNumber(category);
 		currentPageNumber = setPageStartIndex(currentPageNumber);
 		Integer blockLastPageNumber = countBlockLastPageNumber(totalLastPageNumber, currentPageNumber);
 
@@ -114,11 +127,20 @@ public class BoardService {
 	}
 
 	// 총 게시글 기준으로 계산한 마지막 페이지 번호 계산 (올림으로 계산)
-	private Integer countLastPageNumber() {
-		Double postsTotalCount = Double.valueOf(this.getBoardCount());
+	private Integer countLastPageNumber(String category) {
+		Double postsTotalCount = Double.valueOf(this.countPostByCategory(category));
 		Integer totalLastPageNum = (int)(Math.ceil((postsTotalCount/PAGE_POST_COUNT)));
 
 		return totalLastPageNum;
+	}
+
+	@Transactional
+	private Long countPostByCategory(String category) {
+		if (category.equals(BoardCategoryEnum.GENERAL.getCategoryValue())) {
+			return boardRepository.count();
+		}
+
+		return boardRepository.countByCategory(BoardCategoryEnum.findSelectByCategoryValue(category));
 	}
 
 	// 현재 페이지를 기준으로 블럭의 마지막 페이지 번호 계산

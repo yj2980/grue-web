@@ -31,9 +31,10 @@ public class BoardController {
 
 	// show post list
 	@GetMapping({"community","community/list"})
-	public String community(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNumber) {
-		List<BoardDto.ShowBoardDTO> board = boardService.findBoardList(pageNumber);
-		List<Integer> pageList = boardService.getPageList(pageNumber);
+	public String community(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNumber,
+								@RequestParam(value="category", defaultValue = "자유") String category) {
+		List<BoardDto.ShowBoardDTO> board = boardService.findBoardList(pageNumber, category);
+		List<Integer> pageList = boardService.getPageList(pageNumber, category);
 
 		model.addAttribute("writingList", board);
 		model.addAttribute("pageList", pageList);

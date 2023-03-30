@@ -33,4 +33,12 @@ public enum BoardCategoryEnum {
 				.orElse(UNKNOWN)
 				.getCategoryValue();
 	}
+
+	public static String findSelectByCategoryValue(String category) {
+		return Arrays.stream(values())
+				.filter(v -> v.categoryValue.equals(category))
+				.findAny()
+				.orElse(UNKNOWN)
+				.getSelectValue();
+	}
 }
