@@ -1,9 +1,6 @@
 package web.example.demo.dto;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
-import net.bytebuddy.asm.Advice;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 import web.example.demo.model.Board;
 import web.example.demo.model.User;
-
+import web.example.demo.util.BoardCategoryEnum;
 
 public class BoardDto {
 	@Getter
@@ -31,6 +28,7 @@ public class BoardDto {
 					.userID(user)
 					.title(title)
 					.content(content)
+					.category(category)
 					.build();
 		}
 	}
@@ -38,7 +36,7 @@ public class BoardDto {
 	@Getter
 	@Setter
 	@Builder
-	public static class Search {
+	public static class ShowBoardDTO {
 		private int id;
 		private String title;
 		private String author;
@@ -47,10 +45,10 @@ public class BoardDto {
 		private LocalDateTime modifiedDate;
 		private String views;
 
-		public static Search toDTO(Board entity) {
-			return Search.builder()
+		public static ShowBoardDTO toDTO(Board entity) {
+			return ShowBoardDTO.builder()
 					.id(entity.getId())
-					.category("미정")
+					.category(BoardCategoryEnum.findCategoryBySelectValue(entity.getCategory()))
 					.title(entity.getTitle())
 					.author(entity.getUserID().getUsername())
 					.content(entity.getContent())

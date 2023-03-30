@@ -43,4 +43,7 @@ public class Board extends Time{
 	@Column(length = 5000)
 	private String content;
 
+	@Column(nullable = false, length = 100)
+	private String category;
+
 }

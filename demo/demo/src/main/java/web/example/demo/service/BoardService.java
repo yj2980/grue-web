@@ -2,7 +2,6 @@ package web.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import web.example.demo.repository.UserRepository;
 
 @Service
 public class BoardService {
-	private static final int PAGE_POST_COUNT = 4;
+	private static final int PAGE_POST_COUNT = 25;
 	private static final int BLOCK_PAGE_NUM_COUNT = 5; // 블럭에 존재하는 페이지 번호 수
 	@Autowired
 	private BoardRepository boardRepository;
@@ -32,9 +31,7 @@ public class BoardService {
 	}
 
 	public void saveBoardInfo(BoardDto.Create boardDto) {
-		if (verifyUserMembership(boardDto.getAuthor())) {
-			boardRepository.save(toEntity(boardDto));
-		}
+		boardRepository.save(toEntity(boardDto));
 	}
 
 	public void deleteBoardPost(int id) {
@@ -65,10 +62,10 @@ public class BoardService {
 		return boardDto.toBoard(user);
 	}
 
-	public List<BoardDto.Search> findBoardList(Integer pageNumber) {
+	public List<BoardDto.ShowBoardDTO> findBoardList(Integer pageNumber) {
 		Page<Board> boards = boardRepository.findAll(PageRequest.of(pageNumber - 1, PAGE_POST_COUNT));
 
-		return boards.stream().filter(v -> v.getUserID() != null).map(BoardDto.Search::toDTO).collect(Collectors.toList());
+		return boards.stream().filter(v -> v.getUserID() != null).map(BoardDto.ShowBoardDTO::toDTO).collect(Collectors.toList());
 	}
 
 	// 페이징

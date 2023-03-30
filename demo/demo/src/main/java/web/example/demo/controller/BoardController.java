@@ -21,16 +21,18 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
+	// write
 	@PostMapping("writingBoard")
-	public String writeBoard(BoardDto.Create board) {
+	public String writePost(BoardDto.Create board) {
 		boardService.saveBoardInfo(board);
 
 		return "redirect:community";
 	}
 
+	// show post list
 	@GetMapping({"community","community/list"})
 	public String community(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNumber) {
-		List<BoardDto.Search> board = boardService.findBoardList(pageNumber);
+		List<BoardDto.ShowBoardDTO> board = boardService.findBoardList(pageNumber);
 		List<Integer> pageList = boardService.getPageList(pageNumber);
 
 		model.addAttribute("writingList", board);
@@ -39,7 +41,7 @@ public class BoardController {
 		return "community";
 	}
 
-	// 게시물 상세 페이지
+	// show detail page
 	@GetMapping("community/postDetail/{no}")
 	public String postDetail(@PathVariable("no") Integer no, Model model) {
 		BoardDto.Post boardDto = boardService.getPost(no);
@@ -49,6 +51,7 @@ public class BoardController {
 		return "postDetail";
 	}
 
+	// bring data for edited post
 	@GetMapping("community/postUpdate/{no}")
 	public String postUpdate(@PathVariable("no") Integer no, Model model) {
 		BoardDto.Post boardDto = boardService.getPost(no);
@@ -58,7 +61,7 @@ public class BoardController {
 		return "postUpdate";
 	}
 
-
+	// update
 	@PutMapping("community/postUpdate/{no}")
 	public String update(BoardDto.Create boardDto) {
 		boardService.saveBoardInfo(boardDto);
