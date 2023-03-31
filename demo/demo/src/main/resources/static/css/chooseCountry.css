@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color:#333;
+}
+
+.imgbox {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.imgbox .box-cover {
+    line-height: 1em;
+    font-size: 0;
+}
+
+.imgbox img {
+    backface-visibility: hidden;
+    transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    width: 100%;
+}
+
+.imgbox .box-details {
+    pointer-events: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 30px;
+}
+
+.imgbox .box-details::before {
+    content: '';
+    transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: -15px;
+    opacity: 0.7;
+    background: linear-gradient(to bottom, transparent, #000);
+}
+
+.imgbox .box-meta {
+    transition: all 250ms ease-in-out;
+    -moz-transition: all 250ms ease-in-out;
+    -ms-transition: all 250ms ease-in-out;
+    -o-transition: all 250ms ease-in-out;
+    transform: translate(0, 10%);
+    -webkit-transform: translate(0, 10%);
+    -ms-transform: translate(0, 10%);
+    visibility: visible;
+    position: relative;
+    opacity: 0.9;
+    z-index: 2;
+}
+
+.imgbox .box-meta .city,
+.imgbox .box-meta .country {
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    line-height: 1em;
+    color: #ffffff;
+    margin: 0;
+}
+
+.imgbox .box-meta .city {
+    font-size: 1.8rem;
+    margin: 0 0 7.5px;
+}
+
+.imgbox .box-meta .country {
+    font-size: 20px;
+}
+
+.imgbox .box-meta .citysummary {
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    margin-top: 5px;
+    margin-bottom: -20px;
+    display: none;
+    letter-spacing: 0.02em;
+}
+
+.imgbox:hover .box-details::before {
+    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    visibility: visible;
+    opacity: 1;
+}
+
+.imgbox:hover .box-meta {
+    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    visibility: visible;
+    opacity: 1;
+}
+
+.imgbox:hover img {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+}
+
+.imgbox:hover .box-meta .citysummary {
+    display: block !important;
+}
+
+.city-card-style {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: rgb(31 38 135 / 20%) 0px 8px 32px 0px !important;
+    backdrop-filter: blur(4px) !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-radius: 2px !important;
+    border-width: initial !important;
+    border-style: none !important;
+    border-color: initial !important;
+    border-image: initial !important;
+    margin: 16px !important;
+}
+
+.city-card-contents-div {
+    padding: 24px;
+    border-radius: 0 0 2px 2px;
+}
+
+.city-card-contents-title {
+    font-size: 24px;
+    font-weight: 300;
+    list-style:none;
+}
+
+.city-card-contents-subtitle {
+    /* font-size: 0.9rem; */
+    margin: 8px 0 !important;
+    /* font-weight: 400; */
+    color: #333;
+}
+
+.citynamefont {
+    font-size: 1.4rem;
+    /* font-weight: 600; */
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.citynamefont h6 {
+    margin: 0 !important;
+}
+
+/* 반응형 1600px이하 600px이상 노트북 ///////////////////////////////////////////////////////////////////*/
+@media (max-width: 1600px) and (min-width: 600px) {
+    .citynamefont {
+        font-size: 1.2rem;
+        font-weight: 300;
+    }
+}

@@ -43,6 +43,22 @@ public class MainController {
 		return "findAccount";
 	}
 
+	@GetMapping("planningMap")
+	public String planningMap() {
+		return "planningMap";
+	}
+
+	@GetMapping("chooseCountry")
+	public String chooseCountry() {
+		return "chooseCountry";
+	}
+	@PostMapping("chooseCountry/selectCounty")
+	public String selectCountry(@RequestParam("countryKeyword") String keyword) {
+
+		System.out.println("[selectCountry]\n******************\n key : " + keyword);
+
+		return "redirect:/chooseCountry";
+	}
 	@GetMapping("write")
 	public String write() {
 		return "write";
