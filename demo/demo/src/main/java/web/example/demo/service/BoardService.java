@@ -1,5 +1,6 @@
 package web.example.demo.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,14 +8,17 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.example.demo.dto.BoardDto;
+import web.example.demo.dto.CityDto;
 import web.example.demo.model.Board;
+import web.example.demo.model.City;
 import web.example.demo.model.User;
 import web.example.demo.repository.BoardRepository;
+import web.example.demo.repository.CityRepository;
 import web.example.demo.repository.UserRepository;
 import web.example.demo.util.BoardCategoryEnum;
 
@@ -26,6 +30,8 @@ public class BoardService {
 	private BoardRepository boardRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private CityRepository cityRepository;
 
 	// optional to entity
 	public Board findById(int id) {
@@ -34,6 +40,10 @@ public class BoardService {
 
 	public void saveBoardInfo(BoardDto.Create boardDto) {
 		boardRepository.save(toEntity(boardDto));
+	}
+
+	public void saveCityInfo(CityDto.Create cityDto, MultipartFile file) throws IOException {
+		cityRepository.save(toEntity(cityDto, file));
 	}
 
 	public void deleteBoardPost(int id) {
@@ -58,6 +68,11 @@ public class BoardService {
 		return true;
 	}
 
+	private City toEntity(CityDto.Create cityDto, MultipartFile file) throws IOException {
+
+		return cityDto.toBoard(file);
+	}
+
 	private Board toEntity(BoardDto.Create boardDto) {
 		User user = userRepository.findByUsername(boardDto.getAuthor());
 
@@ -80,17 +95,25 @@ public class BoardService {
 		return boards.stream().filter(v -> v.getUserID() != null).map(BoardDto.ShowBoardDTO::toDTO).collect(Collectors.toList());
 	}
 
-	// 페이징
-	@Transactional
-	public Long getBoardCount() {
-		return boardRepository.count();
+	public List<CityDto.ShowCityDTO> findCityList() {
+		List<City> city;
+
+		city = cityRepository.findAll();
+
+		return city.stream().map(CityDto.ShowCityDTO::toDTO).collect(Collectors.toList());
+	}
+
+	public List<BoardDto.ShowBoardDTO> searchPostByKeyword(Integer pageNumber, String keyword) {
+		Page<Board> boards = boardRepository.findByContent(PageRequest.of(pageNumber - 1, PAGE_POST_COUNT), keyword);
+		
+		return boards.stream().filter(v -> v.getUserID() != null).map(BoardDto.ShowBoardDTO::toDTO).collect(Collectors.toList());
 	}
 
 
-	public List<Integer> getPageList(Integer currentPageNumber, String category) {
+	public List<Integer> getPageList(Integer currentPageNumber, String seq, String type) {
 		List<Integer> pageList;
 
-		Integer totalLastPageNumber = countLastPageNumber(category);
+		Integer totalLastPageNumber = countLastPageNumber(seq, type);
 		currentPageNumber = setPageStartIndex(currentPageNumber);
 		Integer blockLastPageNumber = countBlockLastPageNumber(totalLastPageNumber, currentPageNumber);
 
@@ -127,8 +150,16 @@ public class BoardService {
 	}
 
 	// 총 게시글 기준으로 계산한 마지막 페이지 번호 계산 (올림으로 계산)
-	private Integer countLastPageNumber(String category) {
-		Double postsTotalCount = Double.valueOf(this.countPostByCategory(category));
+	private Integer countLastPageNumber(String seq, String type) {
+		Double postsTotalCount = null;
+		
+		if (type.equals("CONTENT")) {
+			postsTotalCount = Double.valueOf(boardRepository.countByContent(seq));
+		}
+		if (type.equals("CATEGORY")) {
+			postsTotalCount = Double.valueOf(this.countPostByCategory(seq));
+		}
+		
 		Integer totalLastPageNum = (int)(Math.ceil((postsTotalCount/PAGE_POST_COUNT)));
 
 		return totalLastPageNum;
@@ -139,7 +170,7 @@ public class BoardService {
 		if (category.equals(BoardCategoryEnum.GENERAL.getCategoryValue())) {
 			return boardRepository.count();
 		}
-
+		
 		return boardRepository.countByCategory(BoardCategoryEnum.findSelectByCategoryValue(category));
 	}
 

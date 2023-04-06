@@ -15,5 +15,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
 	Page<Board> findByCategory(PageRequest of, String category);
 	Long countByCategory(String category);
+	Long countByContent(String content);
+
+	Page<Board> findByContent(PageRequest of, String content);
 }
 

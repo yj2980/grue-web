@@ -34,7 +34,7 @@ public class BoardController {
 	public String community(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNumber,
 								@RequestParam(value="category", defaultValue = "자유") String category) {
 		List<BoardDto.ShowBoardDTO> board = boardService.findBoardList(pageNumber, category);
-		List<Integer> pageList = boardService.getPageList(pageNumber, category);
+		List<Integer> pageList = boardService.getPageList(pageNumber, category, "CATEGORY");
 
 		model.addAttribute("writingList", board);
 		model.addAttribute("pageList", pageList);
@@ -73,6 +73,19 @@ public class BoardController {
 	@DeleteMapping("community/postUpdate/{no}")
 	public String delete(@PathVariable("no") Integer no) {
 		boardService.deleteBoardPost(no);
+
+		return "redirect:/community";
+	}
+
+	@GetMapping("community/search")
+	public String search(@RequestParam(value="page", defaultValue = "1") Integer pageNumber, @RequestParam(value = "keyword") String keyword, Model model) {
+		System.out.println("HIHHIHI");
+
+		List<BoardDto.ShowBoardDTO> board = boardService.searchPostByKeyword(pageNumber, keyword);
+		List<Integer> pageList = boardService.getPageList(pageNumber, keyword, "CONTENT");
+
+		model.addAttribute("writingList", board);
+		model.addAttribute("pageList", pageList);
 
 		return "redirect:/community";
 	}
