@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<form action="writingCity" method="post" id="writingForm" enctype="multipart/form-data">
+    <input type="text" id="cityName_eng" placeholder="도시 이름 ver.Eng" name="cityName"> <br>
+    <input type="text" id="cityName_Kor" placeholder="도시 이름 ver.Kor" name="KorName"> <br>
+    <input type="text" id="description" placeholder="도시를 설명할 내용을 작성하세요." name="description"><br>
+    <input type="text" id="timeDifference" placeholder="시차" name="timeDifference"><br>
+    <input type="file" id="city-img" name="file"> <br>
+    <button type="button" id="writing-btn" onclick="writing()">글쓰기</button>
+</form>
+
+<script type="text/javascript" src="js/writingService.js"></script>
+
+</body>
+</html>

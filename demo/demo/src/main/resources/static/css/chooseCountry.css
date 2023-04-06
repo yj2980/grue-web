@@ -10,6 +10,71 @@ a {
     color:#333;
 }
 
+.main-contents-container {
+    padding: 8px 0;
+}
+
+.card.small .card-image,
+.card.medium .card-image,
+.card.large .card-image {
+    max-height: 60%;
+    overflow: hidden;
+}
+
+.card.small .card-image + .card-content,
+.card.medium .card-image + .card-content,
+.card.large .card-image + .card-content {
+    max-height: 40%;
+}
+
+.card.horizontal.small .card-image,
+.card.horizontal.medium .card-image,
+.card.horizontal.large .card-image {
+    height: 100%;
+    max-height: none;
+    overflow: visible;
+}
+
+.card.horizontal.small .card-image img,
+.card.horizontal.medium .card-image img,
+.card.horizontal.large .card-image img {
+    height: 100%;
+}
+
+.card.horizontal .card-image {
+    max-width: 50%;
+}
+
+.card.horizontal .card-image img {
+    border-radius: 2px 0 0 2px;
+    max-width: 100%;
+    width: auto;
+}
+
+.card .card-image {
+    position: relative;
+}
+
+.card .card-image img {
+    display: block;
+    border-radius: 2px 2px 0 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.card .card-image .card-title {
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-width: 100%;
+    padding: 24px;
+}
+
 .imgbox {
     display: block;
     overflow: hidden;
@@ -129,19 +194,24 @@ a {
     display: block !important;
 }
 
-.city-card-style {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    box-shadow: rgb(31 38 135 / 20%) 0px 8px 32px 0px !important;
-    backdrop-filter: blur(4px) !important;
-    background: rgba(255, 255, 255, 0.25) !important;
-    border-radius: 2px !important;
-    border-width: initial !important;
-    border-style: none !important;
-    border-color: initial !important;
-    border-image: initial !important;
-    margin: 16px !important;
+/* 반응형 600px이하 모바일 기기 ///////////////////////////////////////////////////////////////////*/
+@media (max-width: 600px) {
+    .imgbox {
+        border-radius: 50% !important;
+        width: 135px !important;
+        height: 135px !important;
+    }
+
+    .imgbox img {
+        transition: none !important;
+    }
+    .imgbox .box-meta .city {
+        font-size: 2rem;
+    }
+
+    .imgbox .box-meta .citysummary {
+        display: block;
+    }
 }
 
 .city-card-contents-div {
@@ -162,6 +232,11 @@ a {
     color: #333;
 }
 
+.main-contents-container {
+    padding: 8px 0;
+}
+
+
 .citynamefont {
     font-size: 1.4rem;
     /* font-weight: 600; */
@@ -172,14 +247,42 @@ a {
     white-space: nowrap;
 }
 
-.citynamefont h6 {
-    margin: 0 !important;
-}
-
-/* 반응형 1600px이하 600px이상 노트북 ///////////////////////////////////////////////////////////////////*/
+/* 반응형 1600px이하 600px이상 노트북 */
 @media (max-width: 1600px) and (min-width: 600px) {
-    .citynamefont {
+       .citynamefont h6 {
+        margin: 0 !important;
+    }
+       .citynamefont {
         font-size: 1.2rem;
         font-weight: 300;
     }
+}
+
+/* modal css */
+.modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display:none;
+}
+
+#modal-close-btn {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.modal_content{
+    width:800px;
+    height:450px;
+    background:#fff;
+    border-radius:10px;
+    text-align:center;
+    box-sizing:border-box;
+    padding:74px 0;
+    line-height:23px;
+    cursor:pointer;
 }

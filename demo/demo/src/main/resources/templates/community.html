@@ -41,14 +41,19 @@
     </div>
     <div class = "board-inline">
         <div class= "board-switch">
-            <button type = "button" onclick= ""> 정보 공유 </button>
-            <button type = "button" onclick= ""> 질문 </button>
-            <button type = "button" onclick= ""> 후기 </button>
+            <a th:href = "@{'/community'(category=자유)}">자유</a>
+            <a th:href = "@{'/community'(category=정보공유)}">정보 공유</a>
+            <a th:href = "@{'/community'(category=질문)}">질문</a>
+            <a th:href = "@{'/community'(category=후기)}">후기</a>
         </div>
 
         <div class = "board-search">
-            <button type = "button"> 내용 + 제목 </button>
-            <input class = "board-search-content" type = "text">
+            <from th:action="@{/community/search}" method="POST" id="searchPost">
+                <button type = "button"> 내용 + 제목 </button>
+                <input class = "board-search-content" type="text" name="keyword">
+
+                <button id="search-btn" onclick="search()">검색하기</button>
+           </from>
         </div>
 
         <div class = "board-table">
@@ -92,5 +97,6 @@
 <script type="text/javascript" src="/js/navbar.js"></script>
 <script type="text/javascript" src="/js/LimitWritingInCommunity.js"></script>
 <script type="text/javascript" src="/js/loginService.js"></script>
+<script type="text/javascript" src="/js/postSearchCommunity.js"></script>
 </body>
 </html>

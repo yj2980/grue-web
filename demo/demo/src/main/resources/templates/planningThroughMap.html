@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- marker clusterer -->
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/header_footer.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="d834cf5d0d" crossorigin="anonymous">
     <title>Title</title>
 </head>
-<body>
+<body onload="initialize()">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- header -->
 <header>
@@ -18,8 +20,8 @@
         </div>
         <div class = "menu">
             <ul class = "navbar-menu">
-                <li><a href="/planningMap"> PLANNING </a></li>
-                <li><a href=""> NOTION </a></li>
+                <li><a href="/chooseCountry"> PLANNING </a></li>
+                <li><a href="/cityPostWriteByAdmin"> NOTION </a></li>
                 <li><a href=" "> GRUE </a></li>
                 <li><a href=" "> Q&A </a></li>
                 <li><a href="/community"> COMMUNITY </a></li>
@@ -34,13 +36,23 @@
     </nav>
 </header>
 
-<div class="main_content">
-    <h1 class="content_title">google_map</h1>
-    <button type="button" id="map_button">이동하기</button>
-    <div id="googleMap" style="width: 50%; height: 400px;"></div>
-</div>
+<section>
+    <div class="plan-detail">
+        <div class="plan-detail-header">
+            <p id="plan-title"></p>
+            <p id="durationOfTrip-text"></p>
+        </div>
+    </div>
+    <div>
+        <input id="address" type="textbox">
+        <input type="button" value="검색" onclick="addMakerBySearchResult()">
+    </div>
 
-<!-- footer -->
+    <ul id="location"></ul>
+
+</section>
+<div id="map" style="width: 720px; height: 680px;"></div>
+
 <footer>
     <div class = "footer-link">
         <a href = " "> 이용약관 </a>
@@ -50,8 +62,8 @@
     </div>
     <p> Copyright © <strong class = "page-name"> grue </strong> All rights reserved. </p>
 </footer>
+<script type="text/javascript" src="/js/planningMap.js"></script>
 <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZv3a5QQmdyPuDT3ODoHpipRd0FvFuThQ&callback=initMap&region=kr"></script>
-<script type="text/javascript" src="/js/map.js"></script>
 <script type="text/javascript" src="/js/navbar.js"></script>
 <script type="text/javascript" src="/js/loginService.js"></script>
 </body>
