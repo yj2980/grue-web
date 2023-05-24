@@ -2,13 +2,12 @@ package web.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 
-import web.example.demo.model.Board;
-import web.example.demo.model.User;
 
+@EnableJpaAuditing // 날짜 자동 입력 활성화
 @SpringBootApplication
 public class DemoApplication {
 
